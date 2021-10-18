@@ -5,4 +5,4 @@ Configuration files for serving BERT base, BERT large, and ALBERT base from Hugg
 - ONNX model served on GPU with TensorRT EP
 - TensorRT model served on GPU
 
-Note that the folder names (bert-base, bert-large, albert-base-v1) correspond to the names of the HuggingFace models used.
+Note that the folder names (bert-base-uncased, bert-large-uncased, albert-base-v1) correspond to the names of the HuggingFace models used.
