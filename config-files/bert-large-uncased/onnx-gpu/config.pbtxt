@@ -24,7 +24,7 @@ output [
     dims: [ -1, 1024 ]
   },
   {
-    name: "pooler_output"
+    name: "3167"
     data_type: TYPE_FP32
     dims: [ 1024 ]
   }
