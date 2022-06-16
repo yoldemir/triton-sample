@@ -1,10 +1,22 @@
-This repository is a companion to the blog post titled "XYZ". 
+This repository contains examples of serving pretrained HuggingFace models using NVIDIA Triton Inference Server. As long as you have Docker installed, simply run `sh start_server.sh` to:
+- Pull the PyTorch Docker container from NVIDIA GPU Cloud (NGC)
+- Pull the Triton Docker container from NGC
+- Download sample pretrained models (ALBERT Base, BERT Base, BERT Large) from HuggingFace and convert them to ONNX format
+- Download the configuration files for these models to be served via Triton
+- Spin up a Triton server instance and start serving the said models
 
-As long as you have Docker installed, running `start_server.sh` should download three pretrained AI models mentioned in the blog post (BERT Base, BERT Large, ALBERT Base), convert them to ONNX, and start a Triton inference server serving them. Once the server is started, `benchmark.sh` can be used to benchmark a model to assess its inference performance characteristic. When used as-is, these scripts assume the models are in ONNX format and served on GPU using the default execution provider. Configuration files for all configurations in the blog post can be found in the `config-files` directory. This folder includes the configuration files for these formats:
+Once the server is started, you can run `sh benchmark.sh` to benchmark the latency and throughput of the models that are being served. 
+
+The `config-files` folder includes 5 configurations for each model:
 - ONNX model served on CPU
-- ONNX model served on CPU with OpenVINO EP
+- ONNX model served on CPU with OpenVINO execution provider
 - ONNX model served on GPU
-- ONNX model served on GPU with TensorRT EP
+- ONNX model served on GPU with TensorRT execution provider
 - TensorRT model served on GPU
 
-Note that the folder names (bert-base-uncased, bert-large-uncased, albert-base-v1) for the configuration files correspond to the names of the HuggingFace models used.
+Below are the benchmarking results using an NVIDIA V100 GPU:
+
+<img src="https://github.com/yoldemir/triton-sample/raw/main/latency.JPG" width="600" />
+<img src="https://github.com/yoldemir/triton-sample/raw/main/throughput.JPG" width="600" />
+
+The results indicate that model inference on GPU is vastly superior to CPU in terms of both latency and throughput. We also see that ONNX execution providers such as OpenVINO and TensorRT  have significant performance benefits.
